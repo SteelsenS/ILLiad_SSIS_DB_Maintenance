@@ -1,0 +1,329 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/26/2014 6:46:59 AM"
+  DTS:CreationName="SSIS.Package.3"
+  DTS:CreatorComputerName="SYSTEMS08"
+  DTS:CreatorName="YALE\sss86"
+  DTS:DTSID="{FA4F2D58-9536-4B50-A5FE-85C7071B33B3}"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:LastModifiedProductVersion="11.0.3402.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Purge_Borrowing"
+  DTS:PackageType="5"
+  DTS:VersionBuild="11"
+  DTS:VersionGUID="{4F6933DB-77DD-43D7-AEF3-52D9E4CC3720}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{326154D9-9D28-4DD8-AB56-270533167364}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;declare @TN_Purge varchar(20) = 'TN_Purge'&#xA;&#xA;Begin Transaction @TN_Purge&#xA;&#xA;declare @purgedate datetime = cast(dateadd(yy,-&quot;+ @[User::Var_Purge_Years] +&quot;,getdate()) as date)&#xA;declare @purgetn int = (select max(transactionnumber) from Transactions where creationdate &lt; @purgedate)&#xA;&#xA;delete&#xA;from&#xA;&#x9;BorrowingInvoices&#xA;where&#xA;&#x9;DateGenerated &lt; @purgedate&#xA;delete&#xA;from&#xA;&#x9;InvoiceTracking&#xA;where&#xA;&#x9;TrackingDate &lt; @purgedate&#xA;&#xA;delete&#xA;from&#xA;&#x9;InvoicePayments&#xA;where&#xA;&#x9;PaymentDate &lt; @purgedate&#xA;&#xA;delete&#xA;from&#xA;&#x9;Billing&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;delete&#xA;from&#xA;&#x9;BillingDetails&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;delete&#xA;from&#xA;&#x9;BorrowingRequests&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;delete&#xA;from&#xA;&#x9;Citation&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;delete&#xA;from&#xA;&#x9;EMailCopies&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;delete&#xA;from&#xA;&#x9;History&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;delete&#xA;from&#xA;&#x9;Invoices&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;delete&#xA;from&#xA;&#x9;ISOBillingInfo&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;delete&#xA;from&#xA;&#x9;Notes&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;delete&#xA;from&#xA;&#x9;Tracking&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;delete&#xA;from&#xA;&#x9;transactions&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;delete&#xA;from&#xA;&#x9;CopyrightSessions&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;delete&#xA;from&#xA;&#x9;ISOControl&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;delete&#xA;from&#xA;&#x9;ESPUpdate&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;delete&#xA;from&#xA;&#x9;OriginalRequest&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;delete&#xA;from&#xA;&#x9;Resubmission&#xA;where&#xA;&#x9;TransactionNumber &lt;= @purgetn&#xA;&#xA;&#xA;delete bp&#xA;from&#xA;&#x9;BorrowingPayments as bp&#xA;where&#xA;&#x9;bp.invoicenumber NOT IN&#xA;&#x9;(select invoicenumber from BorrowingInvoices)&#xA;&#xA;delete bp&#xA;from&#xA;&#x9;BorrowingPayments as bp&#xA;where&#xA;&#x9;bp.invoicenumber NOT IN&#xA;&#x9;(select invoicenumber from BorrowingInvoices)&#xA;&#xA;delete ie&#xA;from&#xA;&#x9;ISOExchange as ie&#xA;where&#xA;&#x9;ie.ISONumber NOT IN&#xA;&#x9;(select ISONumber from ISOControl)&#xA;&#xA;COMMIT TRANSACTION @TN_Purge&#xA;go&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_Purge_Transactions">
+      <DTS:VariableValue
+        DTS:DataType="8">declare @TN_Purge varchar(20) = 'TN_Purge'
+
+Begin Transaction @TN_Purge
+
+declare @purgedate datetime = cast(dateadd(yy,-5,getdate()) as date)
+declare @purgetn int = (select max(transactionnumber) from Transactions where creationdate &lt; @purgedate)
+
+delete
+from
+	BorrowingInvoices
+where
+	DateGenerated &lt; @purgedate
+delete
+from
+	InvoiceTracking
+where
+	TrackingDate &lt; @purgedate
+
+delete
+from
+	InvoicePayments
+where
+	PaymentDate &lt; @purgedate
+
+delete
+from
+	Billing
+where
+	TransactionNumber &lt;= @purgetn
+
+delete
+from
+	BillingDetails
+where
+	TransactionNumber &lt;= @purgetn
+
+delete
+from
+	BorrowingRequests
+where
+	TransactionNumber &lt;= @purgetn
+
+delete
+from
+	Citation
+where
+	TransactionNumber &lt;= @purgetn
+
+delete
+from
+	EMailCopies
+where
+	TransactionNumber &lt;= @purgetn
+
+delete
+from
+	History
+where
+	TransactionNumber &lt;= @purgetn
+
+delete
+from
+	Invoices
+where
+	TransactionNumber &lt;= @purgetn
+
+delete
+from
+	ISOBillingInfo
+where
+	TransactionNumber &lt;= @purgetn
+
+delete
+from
+	Notes
+where
+	TransactionNumber &lt;= @purgetn
+
+delete
+from
+	Tracking
+where
+	TransactionNumber &lt;= @purgetn
+
+delete
+from
+	transactions
+where
+	TransactionNumber &lt;= @purgetn
+
+delete
+from
+	CopyrightSessions
+where
+	TransactionNumber &lt;= @purgetn
+
+delete
+from
+	ISOControl
+where
+	TransactionNumber &lt;= @purgetn
+
+delete
+from
+	ESPUpdate
+where
+	TransactionNumber &lt;= @purgetn
+
+delete
+from
+	OriginalRequest
+where
+	TransactionNumber &lt;= @purgetn
+
+delete
+from
+	Resubmission
+where
+	TransactionNumber &lt;= @purgetn
+
+
+delete bp
+from
+	BorrowingPayments as bp
+where
+	bp.invoicenumber NOT IN
+	(select invoicenumber from BorrowingInvoices)
+
+delete bp
+from
+	BorrowingPayments as bp
+where
+	bp.invoicenumber NOT IN
+	(select invoicenumber from BorrowingInvoices)
+
+delete ie
+from
+	ISOExchange as ie
+where
+	ie.ISONumber NOT IN
+	(select ISONumber from ISOControl)
+
+COMMIT TRANSACTION @TN_Purge
+go</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{978C6273-97CA-46CC-90AD-AC60D213A484}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;declare @User_Purge varchar(20) = 'User_Purge'&#xA;&#xA;BEGIN TRANSACTION @User_Purge&#xA;&#xA;delete ua&#xA;from&#xA;&#x9;UsersALL ua&#xA;where&#xA;&#x9;ua.UserName not in&#xA;&#x9;(select UserName from Transactions)&#xA;&#xA;delete un&#xA;from&#xA;&#x9;UserNotes un&#xA;where&#xA;&#x9;un.Username not in&#xA;&#x9;(select username from UsersALL)&#xA;&#xA;delete ual&#xA;from&#xA;&#x9;UserAccountsLink ual&#xA;where&#xA;&#x9;ual.Username not in&#xA;&#x9;(select Username from UsersALL)&#xA;&#xA;delete uac&#xA;from&#xA;&#x9;UserAccounts uac&#xA;where&#xA;&#x9;uac.InternalNo not in&#xA;&#x9;(select useraccountslink.InternalNo from UserAccountsLink)&#xA;&#xA;delete e&#xA;from&#xA;&#x9;EmailCopies e&#xA;where&#xA;&#x9;e.EMailReference not in&#xA;&#x9;(select Username from UsersALL)&#xA;&#x9;and EMailType = 'User'&#xA;&#xA;COMMIT TRANSACTION @User_Purge&#xA;go&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Query_Purge_Users">
+      <DTS:VariableValue
+        DTS:DataType="8">declare @User_Purge varchar(20) = 'User_Purge'
+
+BEGIN TRANSACTION @User_Purge
+
+delete ua
+from
+	UsersALL ua
+where
+	ua.UserName not in
+	(select UserName from Transactions)
+
+delete un
+from
+	UserNotes un
+where
+	un.Username not in
+	(select username from UsersALL)
+
+delete ual
+from
+	UserAccountsLink ual
+where
+	ual.Username not in
+	(select Username from UsersALL)
+
+delete uac
+from
+	UserAccounts uac
+where
+	uac.InternalNo not in
+	(select useraccountslink.InternalNo from UserAccountsLink)
+
+delete e
+from
+	EmailCopies e
+where
+	e.EMailReference not in
+	(select Username from UsersALL)
+	and EMailType = 'User'
+
+COMMIT TRANSACTION @User_Purge
+go</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8538012A-DA3F-443E-BEF1-BA5E164FD049}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Var_Purge_Years">
+      <DTS:VariableValue
+        DTS:DataType="8">5</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Purge_Transactions"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{E74BA9DC-DD70-4DAE-8789-F4F1C5D722C4}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Purge_Transactions"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{71B44BCC-1E5B-4CA6-B7F3-1ED4094A4338}"
+          SQLTask:SqlStmtSourceType="Variable"
+          SQLTask:SqlStatementSource="User::Query_Purge_Transactions" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Purge_Users"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{DE187B38-3DE4-416D-BB1B-264F2A7D1434}"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Purge_Users"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{71B44BCC-1E5B-4CA6-B7F3-1ED4094A4338}"
+          SQLTask:SqlStmtSourceType="Variable"
+          SQLTask:SqlStatementSource="User::Query_Purge_Users" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{59BF55E4-3550-4A38-9142-B0FD6346D5E9}"
+      DTS:From="Package\Purge_Transactions"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Purge_Users" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="173,42"
+          Id="Package\Purge_Transactions"
+          TopLeft="401,106" />
+        <NodeLayout
+          Size="140,42"
+          Id="Package\Purge_Users"
+          TopLeft="417,219" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="487.25,148">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,71"
+              Start="0,0"
+              End="0,63.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

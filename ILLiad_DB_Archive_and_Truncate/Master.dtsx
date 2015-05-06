@@ -1,0 +1,304 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable
+  DTS:refId="Package" xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ExecutableType="SSIS.Package.3"
+  DTS:CreatorName="YALE\sss86"
+  DTS:CreatorComputerName="SYSTEMS08"
+  DTS:CreationDate="8/25/2014 1:06:11 PM"
+  DTS:PackageType="5"
+  DTS:VersionBuild="20"
+  DTS:VersionGUID="{BA9D192E-BCF4-4B45-B415-EDAD411B995E}"
+  DTS:LastModifiedProductVersion="11.0.3402.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="Master"
+  DTS:DTSID="{B88CD23F-4B72-49D3-A8A4-319121C2E79A}"
+  DTS:CreationName="SSIS.Package.3">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">6</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ILLData]"
+      DTS:ObjectName="ILLData"
+      DTS:DTSID="{B2E4F192-E8A3-4C62-AB52-4D3AA0FF4118}"
+      DTS:CreationName="ADO.NET:SQL">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=sqlag-lsnr.its.yale.edu;Integrated Security=True;Connect Timeout=30;Application Name=SSIS-Master-{B2E4F192-E8A3-4C62-AB52-4D3AA0FF4118}ILLData;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Archive_Transactions"
+      DTS:ExecutableType="SSIS.ExecutePackageTask.3"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Archive_Transactions"
+      DTS:DTSID="{0063CF39-73B4-4CCF-8D29-93A028985D53}"
+      DTS:Description="Execute Package Task"
+      DTS:CreationName="SSIS.ExecutePackageTask.3">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>Archive.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Purge_Borrowing_Doc_Del"
+      DTS:ExecutableType="SSIS.ExecutePackageTask.3"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Purge_Borrowing_Doc_Del"
+      DTS:DTSID="{BD1A69E3-4E84-48E8-8D85-DBC07DEF0075}"
+      DTS:Description="Execute Package Task"
+      DTS:CreationName="SSIS.ExecutePackageTask.3">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>Purge_Borrowing.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Purge_Lending"
+      DTS:ExecutableType="SSIS.ExecutePackageTask.3"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Purge_Lending"
+      DTS:DTSID="{CD8221DA-A7CD-4034-B6D3-3CF6D5E0B98F}"
+      DTS:Description="Execute Package Task"
+      DTS:CreationName="SSIS.ExecutePackageTask.3">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>Purge_Lending.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Rebuild Index Task"
+      DTS:ExecutableType="Microsoft.SqlServer.Management.DatabaseMaintenance.DbMaintenanceReindexTask, Microsoft.SqlServer.MaintenancePlanTasks, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:ThreadHint="0"
+      DTS:TaskContact="Rebuild Index Task; Microsoft Corporation; Microsoft SQL Server v9; © 2004 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:Disabled="True"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Rebuild Index Task"
+      DTS:DTSID="{95FE6B51-3E11-40A6-B02D-9F189EEB322E}"
+      DTS:Description="Rebuild Index Task"
+      DTS:CreationName="Microsoft.SqlServer.Management.DatabaseMaintenance.DbMaintenanceReindexTask, Microsoft.SqlServer.MaintenancePlanTasks, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{B2E4F192-E8A3-4C62-AB52-4D3AA0FF4118}"
+          SQLTask:DatabaseSelectionType="4"
+          SQLTask:ServerVersion="11"
+          SQLTask:ExtendedLogging="True"
+          SQLTask:LocalConnectionForLogging=""
+          SQLTask:TaskName=""
+          SQLTask:IgnoreDatabasesInNotOnlineState="False"
+          SQLTask:UseOriginalAmount="True"
+          SQLTask:Percentage="-1"
+          SQLTask:Sort="False"
+          SQLTask:KeepOnline="True"
+          SQLTask:SkipUnsupported="True" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:SelectedDatabases
+            SQLTask:DatabaseName="ILLiadData_1_Dev" />
+          <SQLTask:SelectedDatabases
+            SQLTask:DatabaseName="ILLiadData_1_Reports_Dev" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sync_LSF_Addresses"
+      DTS:ExecutableType="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"
+      DTS:ThreadHint="0"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sync_LSF_Addresses"
+      DTS:DTSID="{54704752-361B-42F9-A42D-80B3B1B415CC}"
+      DTS:Description="Execute SQL Task"
+      DTS:CreationName="Microsoft.SqlServer.Dts.Tasks.ExecuteSQLTask.ExecuteSQLTask, Microsoft.SqlServer.SQLTask, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{71B44BCC-1E5B-4CA6-B7F3-1ED4094A4338}"
+          SQLTask:SqlStatementSource="insert into LenderAddressesALL&#xA;select&#xA;LenderString, AddressNumber, LibraryName, Address1, Address2, Address3, Address4, BAddress1, BAddress2, BAddress3, BAddress4, Fax, ArielAddress, Phone, PriorityShipping, CopyrightPayer, BillingExempt, BillingCategory, LibCopyCharge, LibLoanCharge, LibBillingMethod, EFTS, 'LSF', BorrowingDeptEmail, OdysseyIP, OverrideIFM, ISO, ISOIPAddress, ISORequesterId, ISOUserName, ISOPassword, Blocked, TrustedSender, WebPassword, DefaultShippingMethodLoan, ISOTransport, ISOEMailAddress, ISOAutoUpdateAddress, ESPShipTo, ESPBillTo, RSSID, OverrideOdyssey, TrustedSenderOverride, OdysseyVersion, DefaultShippingMethodArticle, LendingDeptEmail&#xA;from&#xA;lenderaddressesall laa&#xA;&#x9;left join (select lenderstring as lslenderstring, addressnumber as lsaddressnumber from lenderaddressesall where nvtgc = 'LSF') ls on laa.lenderstring = ls.lslenderstring and laa.AddressNumber = ls.lsaddressnumber&#xA;where &#xA;nvtgc = 'sml'&#xA;and ls.lslenderstring is null" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:From="Package\Purge_Lending"
+      DTS:To="Package\Sync_LSF_Addresses"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:DTSID="{345FC8D1-4A2C-4512-86A6-BFBA9A2C14DC}"
+      DTS:CreationName="" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:From="Package\Archive_Transactions"
+      DTS:To="Package\Purge_Borrowing_Doc_Del"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:DTSID="{CEE8B15C-55C3-4901-A9CD-52E7FCAC46BC}"
+      DTS:CreationName="" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:From="Package\Purge_Borrowing_Doc_Del"
+      DTS:To="Package\Purge_Lending"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:DTSID="{5B2D8EB4-8242-4117-A15F-D77D0B633B93}"
+      DTS:CreationName="" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:From="Package\Sync_LSF_Addresses"
+      DTS:To="Package\Rebuild Index Task"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:DTSID="{A4E641F7-308F-4440-83A7-7EE46CE87C2E}"
+      DTS:CreationName="" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql11">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="181,42"
+          Id="Package\Archive_Transactions"
+          TopLeft="485,33" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\Sync_LSF_Addresses"
+          TopLeft="503.75,289.5" />
+        <NodeLayout
+          Size="207,42"
+          Id="Package\Purge_Borrowing_Doc_Del"
+          TopLeft="471,108" />
+        <NodeLayout
+          Size="151,42"
+          Id="Package\Purge_Lending"
+          TopLeft="506,199" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Rebuild Index Task"
+          TopLeft="723.75,287" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="581.5,241">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="10.75,48.5"
+              Start="0,0"
+              End="10.75,41">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.25"
+                    Point2="0,24.25"
+                    Point3="4,24.25" />
+                  <mssgle:LineSegment
+                    End="6.75,24.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="6.75,24.25"
+                    Point2="10.75,24.25"
+                    Point3="10.75,28.25" />
+                  <mssgle:LineSegment
+                    End="10.75,41" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="575,75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33"
+              Start="0,0"
+              End="0,25.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="578,150">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,49"
+              Start="0,0"
+              End="0,41.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="680.75,309.25">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="43,0"
+              Start="0,0"
+              End="35.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="35.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

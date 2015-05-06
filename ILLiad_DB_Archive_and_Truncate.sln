@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "ILLiad_DB_Archive_and_Truncate", "ILLiad_DB_Archive_and_Truncate\ILLiad_DB_Archive_and_Truncate.dtproj", "{A4FB6DB7-1BAD-49B7-8F16-425F2AC18BC1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Deployment|Default = Deployment|Default
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A4FB6DB7-1BAD-49B7-8F16-425F2AC18BC1}.Deployment|Default.ActiveCfg = Deployment
+		{A4FB6DB7-1BAD-49B7-8F16-425F2AC18BC1}.Deployment|Default.Build.0 = Deployment
+		{A4FB6DB7-1BAD-49B7-8F16-425F2AC18BC1}.Development|Default.ActiveCfg = Development
+		{A4FB6DB7-1BAD-49B7-8F16-425F2AC18BC1}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
